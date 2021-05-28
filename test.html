@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+ <head>
+  <title> Yeni sayfa </title>
+  <meta charset="utf-8">
+  <style>
+  </style>
+ </head>
+ <body>
+<h3>Web kamerası ile üyelik</h3>
+<script src="webcam.js"></script>
+<script>
+	webcam.set_api_url('test.php');
+	webcam.set_quality( 90 ); // JPEG kalitesi (1 - 100)
+	webcam.set_shutter_sound( true ); // tıklama sesi çalmak
+</script>
+<table><tr><td valign="top">
+<script>
+document.write(webcam.get_html(300, 200));
+</script>
+<br/><form>
+<input type="button" value="Fotoğraf Çek" onClick="take_snapshot()">
+</form>
+<script>
+webcam.set_hook('onComplete', 'my_completion_handler');	
+function take_snapshot() {
+  document.getElementById('goster').innerHTML='<h3>Yükleniyor...</h3>';
+  webcam.snap();
+}	
+function my_completion_handler(msg) {
+  document.getElementById('goster').innerHTML =msg; 
+  webcam.reset();
+}
+</script>
+</td><td width=50>&nbsp;</td><td valign="top">
+	<div id="goster"></div>
+</td></tr></table>
+</body>
+</html>
